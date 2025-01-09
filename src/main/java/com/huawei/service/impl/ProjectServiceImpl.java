@@ -1,5 +1,6 @@
 package com.huawei.service.impl;
 
+import com.huawei.annotation.DefaultExceptionMessage;
 import com.huawei.dto.ProjectDto;
 import com.huawei.entity.Project;
 import com.huawei.enums.ProjectManagementType;
@@ -56,10 +57,13 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    @DefaultExceptionMessage(defaultMessage = " Failed to delete user")
     public void deleteProject(Long id) {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Project not found with ID: " + id));
-        projectRepository.delete(project);
+
+        project.setIsDeleted(true);
+        projectRepository.save(project);
     }
 
     private ProjectDto convertToDTO(Project project) {

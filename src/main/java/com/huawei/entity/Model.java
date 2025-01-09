@@ -13,7 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @ToString
-@SoftDeleteable
 public class Model extends BaseEntity {
 
 

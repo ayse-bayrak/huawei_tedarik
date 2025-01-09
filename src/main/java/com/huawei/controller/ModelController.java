@@ -1,5 +1,13 @@
 package com.huawei.controller;
 
+import com.huawei.dto.ModelDto;
+import com.huawei.service.ModelService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/projects/{projectId}/models")
 @RequiredArgsConstructor

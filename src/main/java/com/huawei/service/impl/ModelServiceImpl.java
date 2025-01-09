@@ -1,5 +1,6 @@
 package com.huawei.service.impl;
 
+import com.huawei.annotation.DefaultExceptionMessage;
 import com.huawei.dto.ModelDto;
 import com.huawei.entity.Model;
 import com.huawei.entity.Project;
@@ -45,9 +46,11 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
+    @DefaultExceptionMessage(defaultMessage = " Failed to delete user")
     public void deleteModel(Long modelId) {
         Model model = modelRepository.findById(modelId)
                 .orElseThrow(() -> new EntityNotFoundException("Model not found with id: " + modelId));
-        modelRepository.delete(model);
+        model.setIsDeleted(true);
+        modelRepository.save(model);
     }
 }

@@ -1,5 +1,6 @@
 package com.huawei.service.impl;
 
+import com.huawei.annotation.DefaultExceptionMessage;
 import com.huawei.dto.PartDto;
 import com.huawei.entity.Model;
 import com.huawei.entity.Part;
@@ -44,9 +45,11 @@ public class PartServiceImpl implements PartService {
     }
 
     @Override
+    @DefaultExceptionMessage(defaultMessage = " Failed to delete user")
     public void deletePart(Long partId) {
         Part part = partRepository.findById(partId)
                 .orElseThrow(() -> new EntityNotFoundException("Part not found with id: " + partId));
-        partRepository.delete(part);
+        part.setIsDeleted(true);
+        partRepository.save(part);
     }
 }

@@ -6,13 +6,10 @@ import jakarta.persistence.ManyToOne;
 import lombok.*;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
-
 public class Part extends BaseEntity {
 
     private String name; // Parça ismi
