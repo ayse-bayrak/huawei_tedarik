@@ -1,18 +1,15 @@
 package com.huawei.service;
 
 
+import com.huawei.dto.PartDto;
 import com.huawei.entity.Part;
 
 import java.util.List;
 
 public interface PartService {
-    Part save(Part part);
+    PartDto createPart(Long modelId, PartDto partDto);
 
-    Part update(Long id, Part part);
+    List<PartDto> getAllParts(Long modelId);
 
-    void delete(Long id);
-
-    Part findById(Long id);
-
-    List<Part> findAll();
+    void deletePart(Long partId);
 }

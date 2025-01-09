@@ -1,18 +1,14 @@
 package com.huawei.service;
 
-import com.huawei.entity.Model;
+import com.huawei.dto.ModelDto;
 
 import java.util.List;
 
 public interface ModelService {
 
-    Model save(Model model);
+    ModelDto createModel(Long projectId, ModelDto modelDto);
 
-    Model update(Long id, Model model);
+    List<ModelDto> getAllModels(Long projectId);
 
-    void delete(Long id);
-
-    Model findById(Long id);
-
-    List<Model> findAll();
+    void deleteModel(Long modelId);
 }

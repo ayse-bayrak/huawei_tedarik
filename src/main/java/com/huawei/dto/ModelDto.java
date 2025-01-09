@@ -1,19 +1,19 @@
 package com.huawei.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ModelDto {
     private Long id;
     private String name;
-    private String description;
-    private Long projectId; // Related Project ID
-    private List<Long> partIds;
-
+    private double percentage;
+    private boolean active;
+    private Long projectId;
+    private List<PartDto> parts;
 }
