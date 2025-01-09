@@ -23,5 +23,4 @@ Bu proje, bir tedarik sisteminde aylık bazda üretim hedeflerini planlamak ve y
 - Uygulama dockerize edilmistir. 
 - Veritabanı bağlantı ayarlarını application.properties dosyasından yapabilirsiniz.
 - API versiyonlama, /v1 ile yapılmaktadır.
-- Uygulama, tüm API'ler için Swagger entegrasyonu sağlamaktadır. Swagger dokümantasyonuna erişmek için aşağıdaki linki kullanabilirsiniz:
-  - [http://localhost:8080/swagger-ui.html]
+- Uygulama, tüm API'ler için Swagger entegrasyonu sağlamaktadır.
