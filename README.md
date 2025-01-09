@@ -1,4 +1,4 @@
-# Proje Adı: Tedarik Sistemi Yönetimi
+# Proje Adı: Huawei Tedarik Sistemi Yönetimi
 
 ## Proje Tanımı
 Bu proje, bir tedarik sisteminde aylık bazda üretim hedeflerini planlamak ve yönetmek için geliştirilmiştir. API'ler, projelerin, modellerin ve parçaların esnek bir şekilde yönetilmesini sağlar.
