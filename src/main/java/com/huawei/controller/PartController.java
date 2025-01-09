@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/models/{modelId}/parts")
+@RequestMapping("/api/v1/models/{modelId}/parts")
 @RequiredArgsConstructor
 public class PartController {
 

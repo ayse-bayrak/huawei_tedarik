@@ -5,6 +5,7 @@ import com.huawei.dto.ProjectDto;
 import com.huawei.entity.Project;
 import com.huawei.enums.ProjectManagementType;
 import com.huawei.exception.ResourceNotFoundException;
+import com.huawei.mapper.MapperUtil;
 import com.huawei.repository.ModelRepository;
 import com.huawei.repository.ProjectRepository;
 import com.huawei.service.ProjectService;
@@ -20,16 +21,18 @@ public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectRepository projectRepository;
     private final ModelRepository modelRepository;
+    private final MapperUtil mapperUtil;
 
-    public ProjectServiceImpl(ProjectRepository projectRepository, ModelRepository modelRepository) {
+    public ProjectServiceImpl(ProjectRepository projectRepository, ModelRepository modelRepository, MapperUtil mapperUtil) {
         this.projectRepository = projectRepository;
         this.modelRepository = modelRepository;
+        this.mapperUtil = mapperUtil;
     }
 
     @Override
     public List<ProjectDto> getAllProjects() {
         return projectRepository.findAll().stream()
-                .map(this::convertToDTO)
+                .map(project -> mapperUtil.convert(project, new ProjectDto()))
                 .collect(Collectors.toList());
     }
 
@@ -37,13 +40,13 @@ public class ProjectServiceImpl implements ProjectService {
     public ProjectDto getProjectById(Long id) {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Project not found with ID: " + id));
-        return convertToDTO(project);
+        return mapperUtil.convert(project, new ProjectDto());
     }
 
     @Override
     public ProjectDto createProject(ProjectDto projectDTO) {
-        Project project = convertToEntity(projectDTO);
-        return convertToDTO(projectRepository.save(project));
+        Project project = mapperUtil.convert(projectDTO, new Project());
+        return mapperUtil.convert(projectRepository.save(project), new ProjectDto());
     }
 
     @Override
@@ -53,7 +56,7 @@ public class ProjectServiceImpl implements ProjectService {
         project.setName(projectDTO.getName());
         project.setManagementType(ProjectManagementType.valueOf(projectDTO.getManagementType()));
         project.setActive(projectDTO.isActive());
-        return convertToDTO(projectRepository.save(project));
+        return mapperUtil.convert(projectRepository.save(project), new ProjectDto());
     }
 
     @Override
@@ -66,13 +69,4 @@ public class ProjectServiceImpl implements ProjectService {
         projectRepository.save(project);
     }
 
-    private ProjectDto convertToDTO(Project project) {
-        // Conversion logic here...
-        return null;
-    }
-
-    private Project convertToEntity(ProjectDto projectDTO) {
-        // Conversion logic here...
-        return null;
-    }
 }
