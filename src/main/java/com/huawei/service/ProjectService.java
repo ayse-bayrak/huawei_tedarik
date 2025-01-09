@@ -2,18 +2,14 @@ package com.huawei.service;
 
 
 
-import com.huawei.entity.Project;
+import com.huawei.dto.ProjectDto;
 
 import java.util.List;
 
 public interface ProjectService {
-    Project save(Project project);
-
-    Project update(Long id, Project project);
-
-    void delete(Long id);
-
-    Project findById(Long id);
-
-    List<Project> findAll();
+    List<ProjectDto> getAllProjects();
+    ProjectDto getProjectById(Long id);
+    ProjectDto createProject(ProjectDto projectDTO);
+    ProjectDto updateProject(Long id, ProjectDto projectDTO);
+    void deleteProject(Long id);
 }

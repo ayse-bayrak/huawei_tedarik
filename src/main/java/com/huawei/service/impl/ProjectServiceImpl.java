@@ -1,51 +1,74 @@
 package com.huawei.service.impl;
 
+import com.huawei.dto.ProjectDto;
 import com.huawei.entity.Project;
+import com.huawei.enums.ProjectManagementType;
+import com.huawei.exception.ResourceNotFoundException;
+import com.huawei.repository.ModelRepository;
 import com.huawei.repository.ProjectRepository;
 import com.huawei.service.ProjectService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectRepository projectRepository;
+    private final ModelRepository modelRepository;
 
-    public ProjectServiceImpl(ProjectRepository projectRepository) {
+    public ProjectServiceImpl(ProjectRepository projectRepository, ModelRepository modelRepository) {
         this.projectRepository = projectRepository;
+        this.modelRepository = modelRepository;
     }
 
     @Override
-    public Project save(Project project) {
-        return projectRepository.save(project);
+    public List<ProjectDto> getAllProjects() {
+        return projectRepository.findAll().stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Project update(Long id, Project project) {
-        if (!projectRepository.existsById(id)) {
-            throw new RuntimeException("Project not found with id: " + id);
-        }
-        project.setId(id);
-        return projectRepository.save(project);
+    public ProjectDto getProjectById(Long id) {
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Project not found with ID: " + id));
+        return convertToDTO(project);
     }
 
     @Override
-    public void delete(Long id) {
-        if (!projectRepository.existsById(id)) {
-            throw new RuntimeException("Project not found with id: " + id);
-        }
-        projectRepository.deleteById(id);
+    public ProjectDto createProject(ProjectDto projectDTO) {
+        Project project = convertToEntity(projectDTO);
+        return convertToDTO(projectRepository.save(project));
     }
 
     @Override
-    public Project findById(Long id) {
-        return projectRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Project not found with id: " + id));
+    public ProjectDto updateProject(Long id, ProjectDto projectDTO) {
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Project not found with ID: " + id));
+        project.setName(projectDTO.getName());
+        project.setManagementType(ProjectManagementType.valueOf(projectDTO.getManagementType()));
+        project.setActive(projectDTO.isActive());
+        return convertToDTO(projectRepository.save(project));
     }
 
     @Override
-    public List<Project> findAll() {
-        return projectRepository.findAll();
+    public void deleteProject(Long id) {
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Project not found with ID: " + id));
+        projectRepository.delete(project);
+    }
+
+    private ProjectDto convertToDTO(Project project) {
+        // Conversion logic here...
+        return null;
+    }
+
+    private Project convertToEntity(ProjectDto projectDTO) {
+        // Conversion logic here...
+        return null;
     }
 }
