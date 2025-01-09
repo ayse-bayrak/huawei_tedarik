@@ -6,7 +6,7 @@ Bu proje, bir tedarik sisteminde aylık bazda üretim hedeflerini planlamak ve y
 ## Teknolojiler
 - Java 17
 - Spring Boot 3.3.x
-- postgerSQL
+- PostgreSQL
 - Docker
 - Swagger (OpenAPI 3.0)
 
