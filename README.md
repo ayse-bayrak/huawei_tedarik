@@ -6,7 +6,7 @@ Bu proje, bir tedarik sisteminde aylık bazda üretim hedeflerini planlamak ve y
 ## Teknolojiler
 - Java 17
 - Spring Boot 3.3.x
-- H2 Database
+- postgerSQL
 - Docker
 - Swagger (OpenAPI 3.0)
 
@@ -19,4 +19,9 @@ Bu proje, bir tedarik sisteminde aylık bazda üretim hedeflerini planlamak ve y
 
 ## Geliştirici Notları
 - Soft delete için `isDeleted` özelliği kullanılmaktadır.
-- Loglama mekanizması tüm CRUD işlemlerini kaydetmektedir.
+- Loglama mekanizması AOP kullanilarak yapilmistir, tüm CRUD işlemlerini kaydetmektedir, loglar `logs` tablosunda tutulmaktadir. Ayrica sorgulanabilmektedir.
+- Uygulama dockerize edilmistir. 
+- Veritabanı bağlantı ayarlarını application.properties dosyasından yapabilirsiniz.
+- API versiyonlama, /v1 ile yapılmaktadır.
+- Uygulama, tüm API'ler için Swagger entegrasyonu sağlamaktadır. Swagger dokümantasyonuna erişmek için aşağıdaki linki kullanabilirsiniz:
+  - [http://localhost:8080/swagger-ui.html]
